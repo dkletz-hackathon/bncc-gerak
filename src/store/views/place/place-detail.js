@@ -1,4 +1,4 @@
-import { Marathon } from "../../api/sano";
+import { Marathon, Place } from "../../../api/sano";
 
 const placeDetailStore = {
   namespaced: true,
@@ -14,6 +14,10 @@ const placeDetailStore = {
   actions: {
     async logPlaceQuery({ }) {
       await Marathon.logQuery(place.id, query);
+    },
+    async fetchPlace({ commit }, id) {
+      const place = await Place.getById(id);
+      commit("setPlace", place);
     }
   }
 }

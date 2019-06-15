@@ -33,7 +33,7 @@
 <script>
 import ChooseActivity from "./ChooseActivity";
 import ChoosePlace from "./ChoosePlace";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   name: "SearchScreen",
@@ -49,32 +49,7 @@ export default {
       search: {
         activity: null,
         place: null
-      },
-      placeItems: [
-        {
-          name: "Urban Gym",
-          image:
-            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
-          chosen: false
-        },
-        {
-          name: "Taman Ismail Marzuki",
-          image:
-            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
-          chosen: false
-        },
-        {
-          name: "Futsal Active",
-          image:
-            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
-          chosen: false
-        },
-        {
-          name: "Studio Zumba Axel",
-          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
-          chosen: false
-        }
-      ]
+      }
     };
   },
   methods: {
@@ -84,12 +59,6 @@ export default {
         place: null
       };
       this.state = 0;
-      for (let i = 0; i < this.activityItems.length; i++) {
-        this.activityItems[i].chosen = false;
-      }
-      for (let i = 0; i < this.placeItems.length; i++) {
-        this.placeItems[i].chosen = false;
-      }
       this.$emit("close");
     },
     setPlace(status) {
@@ -100,6 +69,11 @@ export default {
       if (chosenActivities.length) {
         this.state = 1;
         this.button = "Pilih Tempat";
+        return;
+      }
+      if (this.state === 1) {
+        const id = this.getChosenId();
+        this.$router.push(`/place/${id}`);
       }
     },
     prevState() {
@@ -108,8 +82,11 @@ export default {
     ...mapGetters("chooseActivityStore", [
       "getChosenActivities"
     ]),
-    ...mapMutations("placeDetailStore", {
-      setPlaceDetail: "setPlace"
+    ...mapGetters("placeStore", [
+      "getChosenId"
+    ]),
+    ...mapState("placeDetailStore", {
+      placeId: "placeId"
     })
   },
   computed: {

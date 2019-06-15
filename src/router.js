@@ -20,7 +20,7 @@ export default new Router({
       component: LoginPage
     },
     {
-      path: '/place',
+      path: '/place/:id',
       name: 'place',
       component: () => import(/* webpackChunkName: "about" */ './views/PlacePage')
     }
