@@ -32,33 +32,33 @@
         </div>
       </div>
 
-      <div class="content-section">
+      <div class="content-section" v-if="place.events.length != 0">
         <h1 class="">Event</h1>
-        <div class="routine">
+        <div class="routine" v-for="(event, i) in place.events" :key="i">
           <div class="routine__image">
-            <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt="">
+            <img :src="event.image" alt="">
           </div>
           <div class="routine__data">
-            <h1 class="routine__data__title">Daily Zumba Class</h1>
+            <h1 class="routine__data__title">{{ event.name }}</h1>
             <div class="routine__data__time">
               <span>
                 <i class="far fa-clock"></i>
-                <p>09.00 - 11.30</p>
+                <p>{{ event.timeDisplay }}</p>
               </span>
               <span>
                 <i class="far fa-calendar-minus"></i>
-                <p>Senin - Rabu</p>
+                <p>{{ event.dayDisplay }}</p>
               </span>
             </div>
             <div class="routine__data__control">
-              <button @click="showModal">TAMBAH REMINDER</button>
+              <button @click="addEvent(i)">TAMBAH REMINDER</button>
               <button><i class="fab fa-twitter"></i></button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="content-section">
+      <div class="content-section" v-if="place.routines.length != 0">
         <h1 class="">Agenda Rutin</h1>
         <div class="routine">
           <div class="routine__image">
@@ -69,11 +69,11 @@
             <div class="routine__data__time">
               <span>
                 <i class="far fa-clock"></i>
-                <p>09.00 - 11.30</p>
+                <p>{{ event.timeDisplaly }}</p>
               </span>
               <span>
                 <i class="far fa-calendar-minus"></i>
-                <p>Senin - Rabu</p>
+                <p>{{ event.dayDisplay }}</p>
               </span>
             </div>
             <div class="routine__data__control">
@@ -106,6 +106,7 @@
 <script>
 import Schedule from './Schedule'
 import { mapActions, mapState } from "vuex";
+import { getStartAndEndDays } from "../../helper/datetime";
 
 export default {
   name: 'PlacePage',
@@ -114,7 +115,7 @@ export default {
   },
   data () {
     return {
-      active: false
+      active: false,
     }
   },
   computed: {
@@ -133,11 +134,15 @@ export default {
     showModal () {
       this.active = true
     },
+    addEvent(id) {
+      window.open(this.place.events[id].gcUrl);
+    },
     ...mapActions("placeDetailStore", [
       "fetchPlace"
     ])
   },
   mounted() {
+    const place = this.place;
     const id = this.$route.params.id;
     this.fetchPlace(id);
   }

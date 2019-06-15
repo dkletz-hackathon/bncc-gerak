@@ -7,7 +7,7 @@ function generateGoogleCalendarLink(title, description, location, startDate, end
   uri += `location=${location}&`;
   uri += `dates=${startDate}%2F${endDate}`;
 
-  return uri;
+  return uri.replace(/ /g, "+");
 }
 
 export {
