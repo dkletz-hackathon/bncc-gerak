@@ -7,7 +7,7 @@ let sanoAxios = axios.create({
   headers: {"Content-Type": "application/json"}
 });
 
-let sanoAxios = applyConverters(sanoAxios);
+sanoAxios = applyConverters(sanoAxios);
 
 if (process.env.NODE_ENV === "development") {
   sanoAxios.interceptors.request.use(request => {
