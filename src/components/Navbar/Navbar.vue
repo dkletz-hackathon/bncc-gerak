@@ -24,8 +24,12 @@ export default {
           icon: "fas fa-home"
         },
         {
-          name: "Profile",
-          icon: "fas fa-user"
+          name: "Activities",
+          icon: "fas fa-volleyball-ball"
+        },
+        {
+          name: "Events",
+          icon: "fas fa-calendar-week"
         },
         {
           name: "Profile",
