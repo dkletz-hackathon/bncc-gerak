@@ -9,6 +9,30 @@
     <div class="place__content">
 
       <div class="content-section">
+        <h1>Lokasi Tempat</h1>
+        <div>
+          <GmapMap
+            :center="{lat:place.lat, lng:place.long}"
+            :zoom="15"
+            map-type-id="terrain"
+            class="map"
+          >
+            <GmapMarker
+              :key="index"
+              v-for="(m, index) in markers"
+              :position="m.position"
+              :clickable="true"
+              :draggable="true"
+              :options="{
+                disableDefaultUI: true
+              }"
+              @click="center=m.position"
+            />
+          </GmapMap>
+        </div>
+      </div>
+
+      <div class="content-section">
         <h1 class="">Event</h1>
         <div class="routine">
           <div class="routine__image">
@@ -96,7 +120,14 @@ export default {
   computed: {
     ...mapState("placeDetailStore", {
       place: "place"
-    })
+    }),
+    markers () {
+      let marker = {
+        lat: this.place.lat,
+        lng: this.place.long
+      }
+      return [marker]
+    }
   },
   methods: {
     showModal () {
@@ -108,20 +139,27 @@ export default {
   },
   mounted() {
     const id = this.$route.params.id;
-    console.log(id);
     this.fetchPlace(id);
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.map {
+  margin-top: 1rem;
+  height: 20rem;
+  width: 100%;
+}
+
 .place {
 
   &__header {
     position: fixed;
     width: 100%;
+    height: 20rem;
+    overflow: hidden;
     img {
-      width: 100%;
+      height: 100%;
       filter: brightness(50%);
     }
     >div {
@@ -144,6 +182,10 @@ export default {
             letter-spacing: 0.15rem;
           }
         }
+        &:last-child {
+          margin-top: 0.8rem;
+          font-size: 0.85rem;
+        }
       }
     }
   }
@@ -152,10 +194,9 @@ export default {
     width: 100%;
     z-index: 1;
     position: absolute;
-    margin-top: 13rem;
+    margin-top: 14.5rem;
     padding: 2rem;
     height: 80vh;
-    // border-radius: 30px;
     background-color: white;
 
     .content-section {
