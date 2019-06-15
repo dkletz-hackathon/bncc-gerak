@@ -86,6 +86,10 @@
 
     <div class="place__header">
       <div class="main-center">
+        <i
+          class="fas fa-long-arrow-alt-left back"
+          @click="$router.go(-1)"
+        />
         <div>
           <span>
             <i class="fas fa-dumbbell"/>
@@ -173,6 +177,10 @@ export default {
     width: 100%;
     height: 20rem;
     overflow: hidden;
+    .back {
+      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+    }
     img {
       height: 100%;
       filter: brightness(50%);
@@ -190,6 +198,7 @@ export default {
       }
       > div {
         margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
         display: flex;
         i {
           margin-right: 0.5rem;
@@ -213,7 +222,7 @@ export default {
     width: 100%;
     z-index: 1;
     position: absolute;
-    margin-top: 14.5rem;
+    margin-top: 16rem;
     padding: 2rem;
     height: 80vh;
     background-color: white;
