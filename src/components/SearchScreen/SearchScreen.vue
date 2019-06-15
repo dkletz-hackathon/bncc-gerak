@@ -1,12 +1,11 @@
 <template>
   <div class="search" v-if="active">
-
     <div class="search__header">
       <span>
-        <i class="fas fa-long-arrow-alt-left" @click="prevState" />
+        <i class="fas fa-long-arrow-alt-left" @click="prevState"/>
       </span>
       <span>
-        <i class="fas fa-times" @click="close" />
+        <i class="fas fa-times" @click="close"/>
       </span>
     </div>
 
@@ -15,46 +14,34 @@
       <div v-if="state === 0">
         <h1>Mau olahraga?</h1>
         <p>Klik kegiatan pilihanmu, akan kita carikan tempat yang cocok.</p>
-        <choose-activity
-          :items="activityItems"
-          @chosen="setActivity"
-        />
+        <choose-activity :items="activityItems" @chosen="setActivity"/>
       </div>
       <!-- place -->
       <div v-if="state === 1">
         <h1>Yuk Pilih Tempat!</h1>
         <p>Klik di salah satu tempat pilihanmu, lalu klik selanjutnya.</p>
-        <choose-place
-          :items="placeItems"
-          @chosen="setPlace"
-        />
+        <choose-place :items="placeItems" @chosen="setPlace"/>
       </div>
     </div>
 
     <div class="search__continue">
-      <button
-        :class="isActive ? 'active': ''"
-        @click="nextState"
-      >
-        Selanjutnya
-      </button>
+      <button :class="isActive ? 'active': ''" @click="nextState">Selanjutnya</button>
     </div>
-  
   </div>
 </template>
 
 <script>
-import ChooseActivity from './ChooseActivity'
-import ChoosePlace from './ChoosePlace'
+import ChooseActivity from "./ChooseActivity";
+import ChoosePlace from "./ChoosePlace";
 
 export default {
-  name: 'SearchScreen',
-  props: ['active'],
+  name: "SearchScreen",
+  props: ["active"],
   components: {
     ChooseActivity,
     ChoosePlace
   },
-  data () {
+  data() {
     return {
       state: 0,
       search: {
@@ -63,86 +50,92 @@ export default {
       },
       activityItems: [
         {
-          name: 'WEIGHTLIFTING',
-          image: 'https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg',
+          name: "WEIGHTLIFTING",
+          image:
+            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
           chosen: false
         },
         {
-          name: 'JOGGING',
-          image: 'https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG',
+          name: "JOGGING",
+          image:
+            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
           chosen: false
         },
         {
-          name: 'FUTSAL',
-          image: 'https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK',
+          name: "FUTSAL",
+          image:
+            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
           chosen: false
         },
         {
-          name: 'ZUMBA',
-          image: 'http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg',
+          name: "ZUMBA",
+          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
           chosen: false
         }
       ],
       placeItems: [
         {
-          name: 'Urban Gym',
-          image: 'https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg',
+          name: "Urban Gym",
+          image:
+            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
           chosen: false
         },
         {
-          name: 'Taman Ismail Marzuki',
-          image: 'https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG',
+          name: "Taman Ismail Marzuki",
+          image:
+            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
           chosen: false
         },
         {
-          name: 'Futsal Active',
-          image: 'https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK',
+          name: "Futsal Active",
+          image:
+            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
           chosen: false
         },
         {
-          name: 'Studio Zumba Axel',
-          image: 'http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg',
+          name: "Studio Zumba Axel",
+          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
           chosen: false
         }
       ]
-    }
+    };
   },
   methods: {
-    close () {
+    close() {
       this.search = {
         activity: null,
         place: null
+      };
+      this.state = 0;
+      for (let i = 0; i < this.activityItems.length; i++) {
+        this.activityItems[i].chosen = false;
       }
-      this.state = 0
-      for (let i=0; i<this.activityItems.length; i++) {
-        this.activityItems[i].chosen = false
+      for (let i = 0; i < this.placeItems.length; i++) {
+        this.placeItems[i].chosen = false;
       }
-      for (let i=0; i<this.placeItems.length; i++) {
-        this.placeItems[i].chosen = false
-      }
-      this.$emit('close')
+      this.$emit("close");
     },
-    setActivity (status) {
-      this.search.activity = status
+    setActivity(status) {
+      this.search.activity = status;
     },
-    setPlace (status) {
-      this.search.place = status
+    setPlace(status) {
+      this.search.place = status;
     },
-    nextState () {
-      if (this.search.activity) this.state = 1
+    nextState() {
+      if (this.search.activity) this.state = 1;
     },
-    prevState () {
-      this.state--
+    prevState() {
+      this.state--;
     }
   },
   computed: {
-    isActive () {
-      if (this.search.activity && (this.state === 0)) return true
-      if (this.search.place && (this.state === 1)) return true
-      return false
+    isActive() {
+      if (this.search.activity && this.state === 0) return true;
+      if (this.search.place && this.state === 1) return true;
+      return false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -161,7 +154,9 @@ export default {
     span {
       display: flex;
       width: 50%;
-      &:last-child { justify-content: flex-end; }
+      &:last-child {
+        justify-content: flex-end;
+      }
       i {
         font-size: 1.5rem;
       }
@@ -171,8 +166,10 @@ export default {
   &__content {
     margin-top: 2rem;
 
-    >div {
-      h1 { color: #2a0269; }
+    > div {
+      h1 {
+        color: #2a0269;
+      }
       p {
         margin-top: 0.25rem;
         margin-bottom: 2rem;
