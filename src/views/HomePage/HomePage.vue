@@ -7,19 +7,19 @@
 
     <navbar active="0"/>
 
-    <div class="home__search main-center">
-      <i class="fas fa-search"></i>
-      <input
-        type="text"
-        placeholder="Mau olahraga apa hari ini?"
-        @click="toggleSearchPopup"
-      >
+    <div class="home__logo main-center">
+      <img :src="require('@/assets/gerak.png')" alt="">
     </div>
 
-    <div class="home__membership main-center">
+    <div class="home__search main-center" @click="toggleSearchPopup">
+      <i class="fas fa-search"></i>
+      <span>Mau olahraga apa hari ini?</span>
+    </div>
+
+    <!-- <div class="home__membership main-center">
       <h1 class="membership__title">Membership</h1>
       <div class="membership__line"></div>
-    </div>
+    </div> -->
 
     <div class="page__section">
       <div class="page__section__title main-center">
@@ -73,8 +73,15 @@ export default {
 <style lang="scss" scoped>
 .home {
 
+  &__logo {
+    img {
+      width: 8rem;
+      margin-bottom: 2rem;
+    }
+  }
+
   &__search {
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     background-color: #e6e6e6;
     border-radius: 8px;
     display: flex;
@@ -85,8 +92,8 @@ export default {
       margin-right: 1rem;
     }
 
-    input {
-      width: 100%;
+    span {
+      color: grey;
     }
   }
 

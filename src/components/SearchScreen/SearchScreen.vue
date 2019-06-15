@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      button: 'Selanjutnya',
+      button: "Selanjutnya",
       state: 0,
       search: {
         activity: null,
@@ -65,41 +65,37 @@ export default {
       this.search.place = status;
     },
     handleSearchButtonClick() {
-      console.log("Hayo");
-      console.log(this.state);
       const chosenActivities = this.getChosenActivities();
-      if (this.state == 0 && chosenActivities.length) {
+      if (this.state === 0) {
+        this.button = "Selanjutnya";
+      }
+      if (this.state === 0 && chosenActivities.length > 0) {
         this.state = 1;
         this.button = "Pilih Tempat";
         this.setQuery(chosenActivities);
         return;
       }
-      if (this.state == 1) {
+      if (this.state === 1) {
         const id = this.getChosenId();
-        console.log(id);
         this.$router.push(`/place/${id}`);
       }
     },
     prevState() {
       this.state--;
       if (this.state === 0) {
+        this.button = "Selanjutnya";
         this.setQuery([]);
       }
     },
-    ...mapGetters("chooseActivityStore", [
-      "getChosenActivities"
-    ]),
-    ...mapGetters("placeStore", [
-      "getChosenId"
-    ]),
-    ...mapMutations("placeDetailStore", [
-      "setQuery"
-    ])
+    ...mapGetters("chooseActivityStore", ["getChosenActivities"]),
+    ...mapGetters("placeStore", ["getChosenId"]),
+    ...mapMutations("placeDetailStore", ["setQuery"])
   },
   computed: {
     isActive() {
-      if (this.search.activity && this.state === 0) return true;
-      if (this.search.place && this.state === 1) return true;
+      if (this.getChosenActivities().length > 0 && this.state === 0)
+        return true;
+      if (this.getChosenId() !== -1 && this.state === 1) return true;
       return false;
     }
   }
