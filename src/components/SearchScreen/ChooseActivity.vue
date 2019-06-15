@@ -10,30 +10,30 @@
       <div class="category-item__content">
         <h1>{{item.name}}</h1>
       </div>
-      <div class="category-item__overlay" />
-      <img :src="item.image" class="category-item__image" alt="">
+      <div class="category-item__overlay"/>
+      <img :src="item.image" class="category-item__image" alt>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ChooseActivity',
-  props: ['items'],
+  name: "ChooseActivity",
+  props: ["items"],
   methods: {
-    choose (idx) {
-      this.items[idx].chosen = !this.items[idx].chosen
-      let state = false
-      for (let i=0; i<this.items.length; i++) {
+    choose(idx) {
+      this.items[idx].chosen = !this.items[idx].chosen;
+      let state = false;
+      for (let i = 0; i < this.items.length; i++) {
         if (this.items[i].chosen) {
-          state = true
-          break
+          state = true;
+          break;
         }
       }
-      this.$emit('chosen', state)
+      this.$emit("chosen", state);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -49,11 +49,13 @@ export default {
     position: relative;
     margin-bottom: 0.8rem;
 
-    -webkit-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
-    -moz-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
-    box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
+    -webkit-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+    -moz-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+    box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
 
-    &:nth-child(odd) { margin-right: 0.8rem; }
+    &:nth-child(odd) {
+      margin-right: 0.8rem;
+    }
 
     &.active {
       .category-item__overlay {
@@ -77,7 +79,9 @@ export default {
       height: 100%;
       filter: grayscale(100%) contrast(200%);
       position: absolute;
-      >img { width: 100%; }
+      > img {
+        width: 100%;
+      }
     }
 
     &__content {

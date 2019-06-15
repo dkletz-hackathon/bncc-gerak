@@ -10,36 +10,36 @@
       <div class="choose-place__item__content">
         <h1>{{item.name}}</h1>
       </div>
-      <div class="choose-place__item__overlay" />
-      <img class="choose-place__item__image" :src="item.image" alt="">
+      <div class="choose-place__item__overlay"/>
+      <img class="choose-place__item__image" :src="item.image" alt>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ChoosePlace',
-  props: ['items'],
+  name: "ChoosePlace",
+  props: ["items"],
   methods: {
-    choose (idx) {
-      this.reset()
-      this.items[idx].chosen = !this.items[idx].chosen
-      let state = false
-      for (let i=0; i<this.items.length; i++) {
+    choose(idx) {
+      this.reset();
+      this.items[idx].chosen = !this.items[idx].chosen;
+      let state = false;
+      for (let i = 0; i < this.items.length; i++) {
         if (this.items[i].chosen) {
-          state = true
-          break
+          state = true;
+          break;
         }
       }
-      this.$emit('chosen', state)
+      this.$emit("chosen", state);
     },
-    reset () {
-      for (let i=0; i<this.items.length; i++) {
-        this.items[i].chosen = false
+    reset() {
+      for (let i = 0; i < this.items.length; i++) {
+        this.items[i].chosen = false;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -53,15 +53,19 @@ export default {
     margin-bottom: 1rem;
     position: relative;
 
-    -webkit-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
-    -moz-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
-    box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
+    -webkit-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+    -moz-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+    box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
 
     &.active {
-      .choose-place__item__overlay { background: black; }
-      .choose-place__item__image { filter: grayscale(0) contrast(200%); }
+      .choose-place__item__overlay {
+        background: black;
+      }
+      .choose-place__item__image {
+        filter: grayscale(0) contrast(200%);
+      }
     }
-    
+
     &__overlay {
       position: absolute;
       width: 100%;
@@ -94,6 +98,5 @@ export default {
       }
     }
   }
-
 }
 </style>

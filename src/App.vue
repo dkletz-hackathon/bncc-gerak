@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <div id="app">
     <router-view/>
-  </v-app>
+  </div>
 </template>
 
 <style lang="scss">
@@ -11,7 +11,7 @@
 $purple: rgb(177, 22, 55);
 
 html, body {
-  .application { font-family: 'Lato', sans-serif !important; }
+  #app { font-family: 'Lato', sans-serif !important; }
   margin: 0;
   padding: 0;
 }
