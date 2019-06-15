@@ -1,6 +1,6 @@
 <template>
   <div class="carousel">
-    <div class="carousel__item" v-for="(place, i) in places" :key="i">
+    <div class="carousel__item" v-for="(place, i) in places" :key="i" @click="open(i)">
       <img :src="place.logo" :alt="place.name" class="item__image">
       <div class="item__content">
         <i class="fas fa-dumbbell"/>
@@ -52,7 +52,11 @@ export default {
   methods: {
     ...mapActions("placeStore", [
       "fetchClosestPlaces"
-    ])
+    ]),
+    open(id) {
+      const place = this.places[id];
+      this.$router.push(`/place/${place.id}`);
+    }
   },
   mounted() {
     const { latitude, longitude } = getCurrentLocation();
