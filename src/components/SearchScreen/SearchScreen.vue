@@ -3,7 +3,7 @@
 
     <div class="search__header">
       <span>
-        <i class="fas fa-long-arrow-alt-left" />
+        <i class="fas fa-long-arrow-alt-left" @click="prevState" />
       </span>
       <span>
         <i class="fas fa-times" @click="close" />
@@ -11,38 +11,49 @@
     </div>
 
     <div class="search__content">
-      <h1>Mau olahraga?</h1>
-      <p>Klik kegiatan pilihanmu, akan kita carikan tempat yang cocok.</p>
-      <div class="search__content__category">
-        <div
-          v-for="(item, i) in items"
-          :key="i"
-          class="category-item"
-          :class="item.chosen ? 'active' : ''"
-          @click="choose(i)"
-        >
-          <div class="category-item__content">
-            <h1>{{item.name}}</h1>
-          </div>
-          <div class="category-item__overlay" />
-          <img :src="item.image" class="category-item__image" alt="">
-        </div>
+      <!-- activity -->
+      <div v-if="state === 0">
+        <h1>Mau olahraga?</h1>
+        <p>Klik kegiatan pilihanmu, akan kita carikan tempat yang cocok.</p>
+        <choose-activity
+          :items="activityItems"
+          @chosen="setActivity"
+        />
+      </div>
+      <!-- place -->
+      <div v-if="state === 1">
+        hehe
       </div>
     </div>
 
     <div class="search__continue">
-      <button :class="stateOne ? 'active': ''">Selanjutnya</button>
+      <button
+        :class="isActive ? 'active': ''"
+        @click="nextState"
+      >
+        Selanjutnya
+      </button>
     </div>
   
   </div>
 </template>
 
 <script>
+import ChooseActivity from './ChooseActivity'
+
 export default {
   name: 'SearchScreen',
+  components: {
+    ChooseActivity
+  },
   data () {
     return {
-      items: [
+      state: 0,
+      search: {
+        activity: null,
+        place: null
+      },
+      activityItems: [
         {
           name: 'WEIGHTLIFTING',
           image: 'https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg',
@@ -70,20 +81,21 @@ export default {
     close () {
       this.$emit('close')
     },
-    choose (idx) {
-      this.items[idx].chosen = !this.items[idx].chosen
+    setActivity (status) {
+      this.search.activity = status
+    },
+    nextState () {
+      if (this.search.activity) this.state = 1
+    },
+    prevState () {
+      this.state--
     }
   },
   computed: {
-    stateOne () {
-      let state = false
-      for (let i=0; i<this.items.length; i++) {
-        if (this.items[i].chosen) {
-          state = true
-          break
-        }
-      }
-      return state
+    isActive () {
+      if (this.search.activity && (this.state === 0)) return true
+      if (this.search.place && (this.state === 1)) return true
+      return false
     }
   }
 }
@@ -91,7 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .search {
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 100vh;
   width: 100vw;
@@ -114,73 +126,15 @@ export default {
   &__content {
     margin-top: 2rem;
 
-    >h1 { color: #2a0269; }
-
-    >p {
-      margin-top: 0.25rem;
-      margin-bottom: 2rem;
-      font-size: 1.2rem;
-      line-height: 1.5rem;
-      color: #444444;
-    }
-
-    &__category {
-      display: flex;
-      flex-wrap: wrap;
-
-      .category-item {
-        width: calc(50% - 0.8rem);
-        height: 8rem;
-        overflow: hidden;
-        border-radius: 8px;
-        position: relative;
-        margin-bottom: 0.8rem;
-
-        &:nth-child(odd) { margin-right: 0.8rem; }
-
-        &.active {
-          .category-item__overlay {
-            background: rgb(0, 0, 0);
-          }
-          .category-item__image {
-            filter: grayscale(0) contrast(200%);
-          }
-        }
-
-        &__overlay {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: rgb(134, 7, 113);
-          opacity: 0.5;
-          z-index: 1;
-        }
-
-        &__image {
-          height: 100%;
-          filter: grayscale(100%) contrast(200%);
-          position: absolute;
-          >img { width: 100%; }
-        }
-
-        &__content {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: absolute;
-          z-index: 2;
-          width: 100%;
-          height: 100%;
-          h1 {
-            padding: 0 0.5rem;
-            color: white;
-            font-size: 0.85rem;
-            letter-spacing: 0.15rem;
-            text-align: center;
-          }
-        }
+    >div {
+      h1 { color: #2a0269; }
+      p {
+        margin-top: 0.25rem;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+        color: #444444;
       }
-
     }
   }
 
