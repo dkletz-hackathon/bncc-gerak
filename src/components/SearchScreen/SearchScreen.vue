@@ -20,7 +20,7 @@
       <div v-if="state === 1">
         <h1>Yuk Pilih Tempat!</h1>
         <p>Klik di salah satu tempat pilihanmu, lalu klik selanjutnya.</p>
-        <choose-place :items="placeItems" @chosen="setPlace"/>
+        <choose-place/>
       </div>
     </div>
 
@@ -65,19 +65,26 @@ export default {
       this.search.place = status;
     },
     handleSearchButtonClick() {
+      console.log("Hayo");
+      console.log(this.state);
       const chosenActivities = this.getChosenActivities();
-      if (chosenActivities.length) {
+      if (this.state == 0 && chosenActivities.length) {
         this.state = 1;
         this.button = "Pilih Tempat";
+        this.setQuery(chosenActivities);
         return;
       }
-      if (this.state === 1) {
+      if (this.state == 1) {
         const id = this.getChosenId();
+        console.log(id);
         this.$router.push(`/place/${id}`);
       }
     },
     prevState() {
       this.state--;
+      if (this.state === 0) {
+        this.setQuery([]);
+      }
     },
     ...mapGetters("chooseActivityStore", [
       "getChosenActivities"
@@ -85,9 +92,9 @@ export default {
     ...mapGetters("placeStore", [
       "getChosenId"
     ]),
-    ...mapState("placeDetailStore", {
-      placeId: "placeId"
-    })
+    ...mapMutations("placeDetailStore", [
+      "setQuery"
+    ])
   },
   computed: {
     isActive() {

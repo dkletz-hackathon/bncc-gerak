@@ -3,21 +3,29 @@ import { Marathon, Place } from "../../../api/sano";
 const placeDetailStore = {
   namespaced: true,
   state: {
-    place: {},
+    place: {
+      category: {}
+    },
     query: [],
   },
   mutations: {
     setPlace(state, place) {
       state.place = place;
+    },
+    setQuery(state, query) {
+      state.query = query;
     }
   },
   actions: {
-    async logPlaceQuery({ }) {
-      await Marathon.logQuery(place.id, query);
+    async logPlaceQuery({ state }, id) {
+      await Marathon.logQuery(id, state.query);
     },
-    async fetchPlace({ commit }, id) {
+    async fetchPlace({ commit, dispatch }, id) {
       const place = await Place.getById(id);
       commit("setPlace", place);
+      if (query.length !== 0) {
+        dispatch("logPlaceQuery", id);
+      }
     }
   }
 }
