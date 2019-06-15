@@ -1,6 +1,6 @@
 import { Places } from "../../api/sano";
 
-const placesStore = {
+const placeStore = {
   namespaced: true,
   state: {
     places: [],
@@ -23,8 +23,11 @@ const placesStore = {
   mutations: {
     setPlaces(state, places) {
       state.places = places;
+    },
+    setStatus(state, status) {
+      state.status = status;
     }
   }
 }
 
-export default placesStore;
+export default placeStore;
