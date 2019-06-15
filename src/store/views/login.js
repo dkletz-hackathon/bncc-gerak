@@ -7,12 +7,13 @@ const loginStore = {
   actions: {
     async login({ commit }, { username, password }) {
       commit("setStatus", "loading")
+      let token;
       try {
-        const token = await Auth.login(username, password).token;
+        token = await Auth.login(username, password).token;
       } finally {
         commit("setStatus", "done");
       }
-      return true;
+      return !!token;
     }
   },
   mutations: {
