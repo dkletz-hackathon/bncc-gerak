@@ -22,7 +22,12 @@ export default new Router({
     {
       path: '/place/:id',
       name: 'place',
-      component: () => import(/* webpackChunkName: "about" */ './views/PlacePage')
+      component: () => import(/* webpackChunkName: "place" */ './views/PlacePage')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import(/* webpackChunkName: "profile" */ './views/ProfilePage')
     }
   ]
 })

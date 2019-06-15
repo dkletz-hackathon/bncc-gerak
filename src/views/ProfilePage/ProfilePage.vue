@@ -1,18 +1,130 @@
 <template>
-  
+  <div class="profile">
+    <navbar active="3"/>
+
+    <div class="profile__panel">
+      <div class="profile__panel__image">
+        <img src="https://cdn.idntimes.com/content-images/community/2019/03/51021013-237686723851021-5419594866899599564-n-383f6bb258383012cb5b5a76ab6cd8a5.jpg" alt="">
+      </div>
+      <div class="profile__panel__data">
+        <h1>Lalisa Manoban</h1>
+        <h2>lisalisa@gmail.com</h2>
+      </div>
+    </div>
+
+    <div class="profile__membership main-center">
+      <h1>Membership Info</h1>
+      <div class="profile__membership__image">
+        <div class="membership__title">
+          <div>
+            <h1>Gold Membership</h1>
+            <i class="fas fa-crown"></i>
+          </div>
+          <p>1.509 points</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Navbar from "@/components/Navbar/Navbar.vue";
 
 export default {
   name: 'profile',
+  components: {
+    Navbar
+  },
   computed: {
     ...mapState("session", ["user"])
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.profile {
+  background-color: #F2F6FE;
+  min-height: 100vh;
 
+  &__panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 2.5rem 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    -webkit-box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
+    -moz-box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
+    box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
+
+    &__image {
+      border-radius: 100px;
+      height: 7rem;
+      width: 7rem;
+      overflow: hidden;
+      >img { width: 100%; }
+    }
+
+    &__data {
+      margin-top: 1rem;
+      h1 {
+        font-size: 1.35rem;
+        text-align: center;
+        margin-bottom: 0.2rem;
+        color: rgb(41, 25, 59);
+      }
+      h2 {
+        font-size: 0.85rem;
+        font-weight: normal;
+        text-align: center;
+        color: grey;
+      }
+    }
+  }
+
+  &__membership {
+    padding-top: 1.5rem;
+
+    >h1 {
+      color: #27153b;
+      font-size: 1.1rem;
+    }
+
+    &__image {
+      margin-top: 1rem;
+      border-radius: 10px;
+      height: 10rem;
+      overflow: hidden;
+      >img {
+        width: 100%;
+        filter: brightness(50%);
+      }
+      .membership__title {
+        position: absolute;
+        z-index: 1;
+        padding: 1rem;
+        padding-top: 5.5rem;
+        * { color: white; }
+        >div {
+          display: flex;
+          align-items: center;
+          >h1 {
+            font-size: 1.35rem;
+            margin-right: 10px;
+          }
+          >i {
+            font-size: 1.5rem;
+          }
+        }
+        >p {
+          margin-top: 0.35rem;
+        }
+      }
+    }
+  }
+}
 </style>
