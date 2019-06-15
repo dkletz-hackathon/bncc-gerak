@@ -1,21 +1,21 @@
 import client from "./helper/client";
 
 function login(username, password) {
-  return client.post("/login", {
+  return client.post("/user/login", {
     username,
     password
   })
     .then(response => response.data);
 }
 
-function validateToken(token) {
-  return client.post("/token", {
-    token
+function getProfile() {
+  return client.get("/user/profile", {
+    "Authorization": "DEPUC1b1m0u0auvUiqg9oNxjR77fpXNj-tknpshGPd94db6DJv1JCA"
   })
     .then(response => response.data);
 }
 
 export {
   login,
-  validateToken
+  getProfile
 }
