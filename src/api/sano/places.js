@@ -4,9 +4,17 @@ function getPlacesByPreferences(preferences) {
   client.get('/places', {
     preferences
   })
-    .then(response => response.data);
+    .then(response => response.data.data);
+}
+
+function getClosesPlaces(latitude, longitude) {
+  client.get('/places', {
+
+  })
+    .then(response => response.data.data);
 }
 
 export {
-  getPlacesByPreferences
+  getPlacesByPreferences,
+  getClosesPlaces
 }

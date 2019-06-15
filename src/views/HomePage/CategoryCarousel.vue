@@ -51,10 +51,7 @@ export default {
     ...mapActions("categoryCarousel", ["fetchCategories"])
   },
   mounted() {
-    this.fetchCategories()
-      .catch({
-        // TODO: Handle error
-      })
+    this.fetchCategories();
   }
 };
 </script>
