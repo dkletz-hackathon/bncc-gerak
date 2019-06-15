@@ -1,5 +1,7 @@
 <template>
   <div class="page home">
+    <search-screen />
+
     <navbar active="0"/>
 
     <div class="home__search main-center">
@@ -14,7 +16,7 @@
 
     <div class="page__section">
       <div class="page__section__title main-center">
-        <h1>Kategori Tempat</h1>
+        <h1>Kategori</h1>
         <span>
           <router-link to="/recommendation">Lihat Semua</router-link>
         </span>
@@ -24,7 +26,7 @@
 
     <div class="page__section">
       <div class="page__section__title main-center">
-        <h1>Rekomendasi Tempat</h1>
+        <h1>Rekomendasi Untukmu</h1>
         <span>
           <router-link to="/recommendation">Lihat Semua</router-link>
         </span>
@@ -36,6 +38,7 @@
 
 <script>
 import Navbar from "@/components/Navbar/Navbar.vue";
+import SearchScreen from '@/components/SearchScreen/SearchScreen.vue'
 import PlaceCarousel from "./PlaceCarousel";
 import CategoryCarousel from "./CategoryCarousel";
 
@@ -44,7 +47,8 @@ export default {
   components: {
     Navbar,
     PlaceCarousel,
-    CategoryCarousel
+    CategoryCarousel,
+    SearchScreen
   }
 };
 </script>
