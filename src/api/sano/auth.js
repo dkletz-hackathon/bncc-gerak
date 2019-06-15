@@ -1,8 +1,8 @@
 import client from "./helper/client";
 
-function login(username, password) {
+function login(email, password) {
   return client.post("/user/login", {
-    username,
+    email,
     password
   })
     .then(response => response.data);
@@ -10,7 +10,9 @@ function login(username, password) {
 
 function getProfile() {
   return client.get("/user/profile", {
-    "Authorization": "DEPUC1b1m0u0auvUiqg9oNxjR77fpXNj-tknpshGPd94db6DJv1JCA"
+    headers: {
+      "Authorization": "DEPUC1b1m0u0auvUiqg9oNxjR77fpXNj-tknpshGPd94db6DJv1JCA"
+    }
   })
     .then(response => response.data);
 }

@@ -19,7 +19,7 @@ const sessionStore = {
     async getProfile({ state, commit }) {
       try {
         const response = await Auth.getProfile();
-        commit("setUser", response.user);
+        commit("setUser", response.data);
         return response.user !== null;
       } catch {
         return false;
