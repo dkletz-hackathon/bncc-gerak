@@ -30,11 +30,11 @@
             <i class="fas fa-crown"></i>
           </div>
           <p>{{membership.description}}</p>
-          <div v-if="membership">
-            <qrcode-vue :value="membership.memberType" :size="size"></qrcode-vue>
-          </div>
         </div>
         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="">
+      </div>
+      <div class="profile__membership__qrcode" v-if="membership">
+        <qrcode-vue :value="membership.memberType" :size="size"></qrcode-vue>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
     },
     data() {
       return {
-        size: 100
+        size: 150
       }
     },
     computed: {
@@ -75,6 +75,7 @@
 .profile {
   background-color: #F2F6FE;
   min-height: 100vh;
+  padding-bottom: 6rem;
 
   &__panel {
     display: flex;
@@ -152,6 +153,12 @@
           margin-top: 0.35rem;
         }
       }
+    }
+
+    &__qrcode {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
     }
   }
 }
