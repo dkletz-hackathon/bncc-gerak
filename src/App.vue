@@ -1,9 +1,5 @@
 <template>
   <v-app>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </v-app>
 </template>
@@ -19,5 +15,11 @@ html, body {
 
 p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
+}
+
+/* Custom */
+
+.main-center {
+  padding: 0 1.5rem;
 }
 </style>

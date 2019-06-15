@@ -34,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -47,10 +47,10 @@ export default {
     margin: 1rem 0;
 
     i {
-      margin-bottom: 0.25rem;
-      font-size: 1.25rem;
+      margin-bottom: 0.45rem;
+      font-size: 1.2rem;
     }
-    
+
     p {
       font-size: 0.85rem;
     }
