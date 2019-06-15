@@ -2,7 +2,7 @@
   <v-container>
     <v-layout column>
       <v-flex>
-        <v-text-field label="Username" v-model="username" single-line></v-text-field>
+        <v-text-field label="Email" v-model="email" single-line></v-text-field>
       </v-flex>
       <v-flex>
         <v-text-field label="Password" v-model="password" single-line></v-text-field>
@@ -18,18 +18,18 @@
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: ""
     };
   },
   methods: {
     async login() {
-      const username = this.username;
+      const email = this.email;
       const password = this.password;
 
       this.$store
         .dispatch("login/login", {
-          username,
+          email,
           password
         })
         .then(success => {

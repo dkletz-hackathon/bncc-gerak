@@ -1,4 +1,4 @@
-import { Auth } from "../../api/sano";
+import {Auth} from "../../api/sano";
 
 const sessionStore = {
   namespaced: true,
@@ -7,22 +7,20 @@ const sessionStore = {
   },
   getters: {
     getToken(state) {
-      const token = localStorage.getItem("token");
-      return token;
+      return localStorage.getItem("token");
     }
   },
   mutations: {
-    setUser(state) {
+    setUser(state, user) {
       state.user = user;
     }
   },
   actions: {
-    // TODO: Integrate validation with backend
-    async signUser({ commit }, { token }) {
+    async getProfile({ state, commit }) {
       try {
-        const response = await Auth.validateToken(token);
-        commit("setUser", response.user);
-        return response.user != null;
+        const response = await Auth.getProfile();
+        commit("setUser", response.data);
+        return response.user !== null;
       } catch {
         return false;
       }

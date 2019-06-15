@@ -6,11 +6,11 @@ const loginStore = {
     status: "idle",
   },
   actions: {
-    async login({ commit }, { username, password }) {
+    async login({ commit }, { email, password }) {
       commit("setStatus", "loading")
       let token;
       try {
-        token = await Auth.login(username, password).token;
+        token = await Auth.login(email, password).token;
       } finally {
         commit("setStatus", "done");
       }
