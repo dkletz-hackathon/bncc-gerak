@@ -1,6 +1,7 @@
 import { Category } from "../../../api/sano";
 
 const categoryCarouselStore = {
+  namespaced: true,
   state: {
     status: "idle"
   },

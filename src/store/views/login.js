@@ -1,6 +1,7 @@
 import { Auth } from "../../api/sano";
 
 const loginStore = {
+  namespaced: true,
   state: {
     status: "idle",
   },
