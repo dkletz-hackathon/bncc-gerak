@@ -1,11 +1,11 @@
 <template>
   <div class="carousel">
-    <div class="carousel__item" v-for="(item, i) in items" :key="i">
-      <img :src="item.image" :alt="item.title" class="item__image">
+    <div class="carousel__item" v-for="(place, i) in places" :key="i">
+      <img :src="place.logo" :alt="place.name" class="item__image">
       <div class="item__content">
         <i class="fas fa-dumbbell"/>
-        <h2>{{item.type}}</h2>
-        <h1>{{item.title}}</h1>
+        <h2>{{place.category}}</h2>
+        <h1>{{place.name}}</h1>
         <h3>
           <i class="fas fa-map-marker-alt"/>
           800 m dari lokasi Anda

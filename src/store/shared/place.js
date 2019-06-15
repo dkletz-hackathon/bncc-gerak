@@ -9,13 +9,13 @@ const placeStore = {
   actions: {
     async fetchClosestPlaces({ commit }, { latitude, longitude }) {
       commit("setStatus", "loading");
-      const places = await Place.getClosesPlaces(latitude, longitude);
+      const places = await Place.search(latitude, longitude);
       commit("setPlaces", places);
       commit("setStatus", "done");
     },
-    async fetchPlacesByPreferences({ commit }, { preferences }) {
+    async fetchPlacesByPreferences({ commit }, { latitude, longitude, preferences }) {
       commit("setStatus", "loading");
-      const places = await Place.getPlacesByPreferences(preferences);
+      const places = await Place.search(preferences);
       commit("setPlaces", places);
       commit("setStatus", "done");
     }

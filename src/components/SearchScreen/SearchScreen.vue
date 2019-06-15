@@ -33,7 +33,7 @@
 <script>
 import ChooseActivity from "./ChooseActivity";
 import ChoosePlace from "./ChoosePlace";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "SearchScreen",
@@ -96,7 +96,6 @@ export default {
     },
     handleSearchButtonClick() {
       const chosenActivities = this.getChosenActivities();
-      console.log(chosenActivities);
       if (chosenActivities.length) {
         this.state = 1;
       }
@@ -106,7 +105,10 @@ export default {
     },
     ...mapGetters("chooseActivityStore", [
       "getChosenActivities"
-    ])
+    ]),
+    ...mapMutations("placeDetailStore", {
+      setPlaceDetail: "setPlace"
+    })
   },
   computed: {
     isActive() {
