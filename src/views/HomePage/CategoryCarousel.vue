@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import { Category } from "../../api/sano";
+import { mapState } from "vuex";
+
 export default {
   name: 'CategoryCarousel',
   data () {
@@ -38,6 +41,15 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState("category", ["categories, status"])
+  },
+  mounted() {
+    this.$store.dispatch("categoryCarousel/fetchCategories")
+      .catch(() => {
+        // TODO: handle failure in categories fetching
+      });
   }
 }
 </script>
