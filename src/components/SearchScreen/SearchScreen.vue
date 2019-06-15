@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div class="search" v-if="active">
 
     <div class="search__header">
       <span>
@@ -43,6 +43,7 @@ import ChooseActivity from './ChooseActivity'
 
 export default {
   name: 'SearchScreen',
+  props: ['active'],
   components: {
     ChooseActivity
   },
@@ -79,6 +80,13 @@ export default {
   },
   methods: {
     close () {
+      this.search = {
+        activity: null,
+        place: null
+      }
+      for (let i=0; i<this.activityItems.length; i++) {
+        this.activityItems[i].chosen = false
+      }
       this.$emit('close')
     },
     setActivity (status) {

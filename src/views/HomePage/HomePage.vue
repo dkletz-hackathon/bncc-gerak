@@ -1,12 +1,19 @@
 <template>
   <div class="page home">
-    <search-screen />
+    <search-screen
+      :active="searchPopup"
+      @close="toggleSearchPopup"
+    />
 
     <navbar active="0"/>
 
     <div class="home__search main-center">
       <i class="fas fa-search"></i>
-      <input type="text" placeholder="Mau olahraga apa hari ini?">
+      <input
+        type="text"
+        placeholder="Mau olahraga apa hari ini?"
+        @click="toggleSearchPopup"
+      >
     </div>
 
     <div class="home__membership main-center">
@@ -49,6 +56,16 @@ export default {
     PlaceCarousel,
     CategoryCarousel,
     SearchScreen
+  },
+  data () {
+    return {
+      searchPopup: false
+    }
+  },
+  methods: {
+    toggleSearchPopup () {
+      this.searchPopup = !this.searchPopup
+    }
   }
 };
 </script>
