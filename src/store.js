@@ -4,6 +4,7 @@ import SessionStore from "./store/shared/session";
 import LoginStore from "./store/views/login";
 import CategoryCarouselStore from "./store/views/home/category-carousel";
 import PlaceStore from "./store/shared/place";
+import ChooseActivityStore from "./store/views/search/choose-activity";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     session: SessionStore,
     login: LoginStore,
     categoryCarousel: CategoryCarouselStore,
-    placeStore: PlaceStore
+    placeStore: PlaceStore,
+    chooseActivityStore: ChooseActivityStore
   }
 })

@@ -14,7 +14,7 @@
       <div v-if="state === 0">
         <h1>Mau olahraga?</h1>
         <p>Klik kegiatan pilihanmu, akan kita carikan tempat yang cocok.</p>
-        <choose-activity :items="activityItems" @chosen="setActivity"/>
+        <choose-activity/>
       </div>
       <!-- place -->
       <div v-if="state === 1">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="search__continue">
-      <button :class="isActive ? 'active': ''" @click="nextState">Selanjutnya</button>
+      <button :class="isActive ? 'active': ''" @click="handleSearchButtonClick">Selanjutnya</button>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@
 <script>
 import ChooseActivity from "./ChooseActivity";
 import ChoosePlace from "./ChoosePlace";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SearchScreen",
@@ -48,31 +49,6 @@ export default {
         activity: null,
         place: null
       },
-      activityItems: [
-        {
-          name: "WEIGHTLIFTING",
-          image:
-            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
-          chosen: false
-        },
-        {
-          name: "JOGGING",
-          image:
-            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
-          chosen: false
-        },
-        {
-          name: "FUTSAL",
-          image:
-            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
-          chosen: false
-        },
-        {
-          name: "ZUMBA",
-          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
-          chosen: false
-        }
-      ],
       placeItems: [
         {
           name: "Urban Gym",
@@ -115,18 +91,22 @@ export default {
       }
       this.$emit("close");
     },
-    setActivity(status) {
-      this.search.activity = status;
-    },
     setPlace(status) {
       this.search.place = status;
     },
-    nextState() {
-      if (this.search.activity) this.state = 1;
+    handleSearchButtonClick() {
+      const chosenActivities = this.getChosenActivities();
+      console.log(chosenActivities);
+      if (chosenActivities.length) {
+        this.state = 1;
+      }
     },
     prevState() {
       this.state--;
-    }
+    },
+    ...mapGetters("chooseActivityStore", [
+      "getChosenActivities"
+    ])
   },
   computed: {
     isActive() {

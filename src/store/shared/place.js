@@ -1,4 +1,4 @@
-import { Places } from "../../api/sano";
+import { Place } from "../../api/sano";
 
 const placeStore = {
   namespaced: true,
@@ -9,13 +9,13 @@ const placeStore = {
   actions: {
     async fetchClosestPlaces({ commit }, { latitude, longitude }) {
       commit("setStatus", "loading");
-      const places = await Places.getClosesPlaces(latitude, longitude);
+      const places = await Place.getClosesPlaces(latitude, longitude);
       commit("setPlaces", places);
       commit("setStatus", "done");
     },
     async fetchPlacesByPreferences({ commit }, { preferences }) {
       commit("setStatus", "loading");
-      const places = await Places.getPlacesByPreferences(preferences);
+      const places = await Place.getPlacesByPreferences(preferences);
       commit("setPlaces", places);
       commit("setStatus", "done");
     }
