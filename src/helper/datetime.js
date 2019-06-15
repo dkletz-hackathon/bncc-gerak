@@ -6,8 +6,8 @@ function getSanitizedDateTime(dateTime) {
   // Old format is yyyy/mm/dd:hh:mm:ss
   // Gonna change it to yyyymmddThhmm00Z
   const parsedDateTime = moment(dateTime);
-  let sanitizedDateTime = parsedDateTime.format("YYYYMMDDThhmm");
-  sanitizedDateTime += "07Z";
+  let sanitizedDateTime = parsedDateTime.format("YYYYMMDDTHHmm");
+  sanitizedDateTime += "00Z";
   return sanitizedDateTime;
 }
 

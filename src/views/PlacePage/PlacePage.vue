@@ -1,13 +1,8 @@
 <template>
   <div class="place">
-
-    <schedule
-      :active="active"
-      @close="active = false"
-    />
+    <schedule :active="active" @close="active = false"/>
 
     <div class="place__content">
-
       <div class="content-section">
         <h1>Lokasi Tempat</h1>
         <div>
@@ -33,10 +28,10 @@
       </div>
 
       <div class="content-section" v-if="place.events.length != 0">
-        <h1 class="">Event</h1>
+        <h1 class>Event</h1>
         <div class="routine" v-for="(event, i) in place.events" :key="i">
           <div class="routine__image">
-            <img :src="event.image" alt="">
+            <img :src="event.image" alt>
           </div>
           <div class="routine__data">
             <h1 class="routine__data__title">{{ event.name }}</h1>
@@ -52,17 +47,19 @@
             </div>
             <div class="routine__data__control">
               <button @click="addEvent(i)">TAMBAH REMINDER</button>
-              <button><i class="fab fa-twitter"></i></button>
+              <button @click="shareEventTwitter(i)">
+                <i class="fab fa-twitter"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <div class="content-section" v-if="place.routines.length != 0">
-        <h1 class="">Agenda Rutin</h1>
+        <h1 class>Agenda Rutin</h1>
         <div class="routine">
           <div class="routine__image">
-            <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt="">
+            <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt>
           </div>
           <div class="routine__data">
             <h1 class="routine__data__title">Daily Zumba Class</h1>
@@ -78,75 +75,89 @@
             </div>
             <div class="routine__data__control">
               <button @click="showModal">TAMBAH REMINDER</button>
-              <button><i class="fab fa-twitter"></i></button>
+              <button>
+                <i class="fab fa-twitter"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="place__header">
       <div class="main-center">
         <div>
-          <span><i class="fas fa-dumbbell" /></span>
-          <span><h2>{{ place.category.name }}</h2></span>
+          <span>
+            <i class="fas fa-dumbbell"/>
+          </span>
+          <span>
+            <h2>{{ place.category.name }}</h2>
+          </span>
         </div>
         <h1>{{ place.name }}</h1>
         <div>
-          <span><i class="fas fa-map-marker-alt" /></span>
+          <span>
+            <i class="fas fa-map-marker-alt"/>
+          </span>
           <span>{{ place.address }}</span>
         </div>
       </div>
-      <img :src="place.logo" alt="">
+      <img :src="place.logo" alt>
     </div>
   </div>
 </template>
 
 <script>
-import Schedule from './Schedule'
+import Schedule from "./Schedule";
 import { mapActions, mapState } from "vuex";
 import { getStartAndEndDays } from "../../helper/datetime";
+import { generateTwitterLink } from "../../helper/twitter";
 
 export default {
-  name: 'PlacePage',
+  name: "PlacePage",
   components: {
     Schedule
   },
-  data () {
+  data() {
     return {
-      active: false,
-    }
+      active: false
+    };
   },
   computed: {
     ...mapState("placeDetailStore", {
       place: "place"
     }),
-    markers () {
+    markers() {
       let marker = {
         lat: this.place.lat,
         lng: this.place.long
-      }
-      return [marker]
+      };
+      return [marker];
     }
   },
   methods: {
-    showModal () {
-      this.active = true
+    showModal() {
+      this.active = true;
     },
     addEvent(id) {
       window.open(this.place.events[id].gcUrl);
     },
-    ...mapActions("placeDetailStore", [
-      "fetchPlace"
-    ])
+    shareEventTwitter(id) {
+      const url = generateTwitterLink(
+        `Ada acara ${
+          this.place.events[id].name
+        } asik nih di http://139.99.77.25/place/${this.place.id}`
+      );
+      window.open(url);
+    },
+    ...mapActions("placeDetailStore", ["fetchPlace"])
   },
   mounted() {
     const place = this.place;
     const id = this.$route.params.id;
     this.fetchPlace(id);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -157,7 +168,6 @@ export default {
 }
 
 .place {
-
   &__header {
     position: fixed;
     width: 100%;
@@ -167,19 +177,23 @@ export default {
       height: 100%;
       filter: brightness(50%);
     }
-    >div {
+    > div {
       padding-top: 3rem;
       z-index: 1;
       position: absolute;
-      * { color: white; }
+      * {
+        color: white;
+      }
       h2 {
         font-weight: normal;
         font-size: 1rem;
       }
-      >div {
+      > div {
         margin-top: 0.25rem;
         display: flex;
-        i { margin-right: 0.5rem; }
+        i {
+          margin-right: 0.5rem;
+        }
         &:first-child {
           margin-bottom: 1rem;
           h2 {
@@ -207,7 +221,7 @@ export default {
     .content-section {
       margin-bottom: 2rem;
 
-      >h1 {
+      > h1 {
         font-size: 1.2rem;
         color: #27153b;
       }
@@ -219,7 +233,7 @@ export default {
           height: 6rem;
           overflow: hidden;
           border-radius: 8px;
-          >img {
+          > img {
             width: 100%;
             filter: brightness(70%);
           }
@@ -245,7 +259,9 @@ export default {
                 margin-right: 8px;
                 color: rgb(134, 7, 106);
               }
-              &:last-child { justify-content: flex-end; }
+              &:last-child {
+                justify-content: flex-end;
+              }
             }
           }
 
@@ -272,6 +288,5 @@ export default {
       }
     }
   }
-
 }
 </style>
