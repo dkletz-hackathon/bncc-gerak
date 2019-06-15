@@ -13,9 +13,9 @@ const placeStore = {
       commit("setPlaces", places);
       commit("setStatus", "done");
     },
-    async fetchPlacesByPreferences({ commit }, { latitude, longitude, preferences }) {
+    async fetchPlacesByPreferences({ commit }, { latitude, longitude, chosenActivities }) {
       commit("setStatus", "loading");
-      const places = await Place.search(latitude, longitude, preferences);
+      const places = await Place.search(latitude, longitude, chosenActivities);
       commit("setPlaces", places);
       commit("setStatus", "done");
     }
