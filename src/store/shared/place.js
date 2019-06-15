@@ -44,10 +44,11 @@ const placeStore = {
   getters: {
     getChosenId(state) {
       const chosenPlaces = state.places.filter(place => place.chosen);
+      console.log(chosenPlaces);
       if (chosenPlaces.length === 0) {
         return -1;
       } else {
-        return chosenPlaces.id;
+        return chosenPlaces[0].id;
       }
     }
   }
