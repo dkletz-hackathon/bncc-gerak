@@ -19,7 +19,12 @@ function search(latitude, longitude, preferences = undefined) {
   uri += `lat=${latitude}&`;
   uri += `long=${longitude}`;
   if (!!preferences) {
-    uri += `&preferences=${preferences}`;
+    uri += "&preferences=";
+    uri += preferences[0];
+    for (let i = 1; i < preferences; i++) {
+      uri += ",";
+      uri += preferences[i];
+    }
   }
   return client.get(uri)
     .then(response => response.data.data);
