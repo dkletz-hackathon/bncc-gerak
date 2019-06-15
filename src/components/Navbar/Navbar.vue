@@ -1,14 +1,15 @@
 <template>
   <div class="navbar">
-    <div
+    <router-link
       class="navbar__item"
       v-for="(item, i) in items"
       :key="item.name"
       :class="parseInt(active) === i ? 'active': ''"
+      :to="`/${item.link}`"
     >
       <i :class="item.icon"/>
       <p>{{item.name}}</p>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -21,19 +22,23 @@ export default {
       items: [
         {
           name: "Home",
-          icon: "fas fa-home"
+          icon: "fas fa-home",
+          link: ''
         },
         {
           name: "Activities",
-          icon: "fas fa-volleyball-ball"
+          icon: "fas fa-volleyball-ball",
+          link: ''
         },
         {
           name: "Events",
-          icon: "fas fa-calendar-week"
+          icon: "fas fa-calendar-week",
+          link: ''
         },
         {
           name: "Profile",
-          icon: "fas fa-user"
+          icon: "fas fa-user",
+          link: 'profile'
         }
       ]
     };
@@ -74,9 +79,16 @@ export default {
     }
 
     &.active {
-      * { color: rgb(134, 7, 106); }
+      * { color: #613CEA; }
+      animation: scaleUp 0.3s ease;
+      transform: scale(1.12);
     }
   }
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
 }
 </style>
 

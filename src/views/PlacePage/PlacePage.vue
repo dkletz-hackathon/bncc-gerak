@@ -66,21 +66,22 @@
       <div class="main-center">
         <div>
           <span><i class="fas fa-dumbbell" /></span>
-          <span><h2>Gym</h2></span>
+          <span><h2>{{ place.category.name }}</h2></span>
         </div>
-        <h1>Urban Gym</h1>
+        <h1>{{ place.name }}</h1>
         <div>
           <span><i class="fas fa-map-marker-alt" /></span>
-          <span>Jl. Kebon Kacang 35 no. 8, Jakarta Pusat</span>
+          <span>{{ place.address }}</span>
         </div>
       </div>
-      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="">
+      <img :src="place.logo" alt="">
     </div>
   </div>
 </template>
 
 <script>
 import Schedule from './Schedule'
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: 'PlacePage',
@@ -92,10 +93,23 @@ export default {
       active: false
     }
   },
+  computed: {
+    ...mapState("placeDetailStore", {
+      place: "place"
+    })
+  },
   methods: {
     showModal () {
       this.active = true
-    }
+    },
+    ...mapActions("placeDetailStore", [
+      "fetchPlace"
+    ])
+  },
+  mounted() {
+    const id = this.$route.params.id;
+    console.log(id);
+    this.fetchPlace(id);
   }
 }
 </script>

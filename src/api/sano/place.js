@@ -25,8 +25,14 @@ function search(latitude, longitude, preferences = undefined) {
     .then(response => response.data.data);
 }
 
+function getById(id) {
+  return client.get(`/location/${id}`)
+    .then(response => response.data.data);
+}
+
 export {
   getPlacesByPreferences,
   getClosesPlaces,
-  search
+  search,
+  getById
 }
