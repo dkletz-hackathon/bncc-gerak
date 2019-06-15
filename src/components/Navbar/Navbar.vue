@@ -4,7 +4,7 @@
       class="navbar__item"
       v-for="(item, i) in items"
       :key="item.name"
-      :class="active === i ? 'active': ''"
+      :class="parseInt(active) === i ? 'active': ''"
     >
       <i :class="item.icon"/>
       <p>{{item.name}}</p>
@@ -74,7 +74,7 @@ export default {
     }
 
     &.active {
-      color: rgb(134, 7, 106);
+      * { color: rgb(134, 7, 106); }
     }
   }
 }

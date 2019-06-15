@@ -4,7 +4,7 @@
     <div class="place__content">
 
       <div class="content-section">
-        <h1 class="">Event</h1>
+        <h1 class="">Agenda Rutin</h1>
         <div class="routine">
           <div class="routine__image">
             <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt="">
@@ -133,7 +133,7 @@ export default {
           border-radius: 8px;
           >img {
             width: 100%;
-            filter: brightness(70%) grayscale(100%);
+            filter: brightness(70%);
           }
         }
 
