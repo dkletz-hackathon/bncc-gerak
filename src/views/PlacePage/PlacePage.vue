@@ -1,10 +1,15 @@
 <template>
   <div class="place">
 
+    <schedule
+      :active="active"
+      @close="active = false"
+    />
+
     <div class="place__content">
 
       <div class="content-section">
-        <h1 class="">Agenda Rutin</h1>
+        <h1 class="">Event</h1>
         <div class="routine">
           <div class="routine__image">
             <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt="">
@@ -20,6 +25,10 @@
                 <i class="far fa-calendar-minus"></i>
                 <p>Senin - Rabu</p>
               </span>
+            </div>
+            <div class="routine__data__control">
+              <button @click="showModal">TAMBAH REMINDER</button>
+              <button><i class="fab fa-twitter"></i></button>
             </div>
           </div>
         </div>
@@ -42,6 +51,10 @@
                 <i class="far fa-calendar-minus"></i>
                 <p>Senin - Rabu</p>
               </span>
+            </div>
+            <div class="routine__data__control">
+              <button @click="showModal">TAMBAH REMINDER</button>
+              <button><i class="fab fa-twitter"></i></button>
             </div>
           </div>
         </div>
@@ -67,8 +80,23 @@
 </template>
 
 <script>
+import Schedule from './Schedule'
+
 export default {
-  name: 'PlacePage'
+  name: 'PlacePage',
+  components: {
+    Schedule
+  },
+  data () {
+    return {
+      active: false
+    }
+  },
+  methods: {
+    showModal () {
+      this.active = true
+    }
+  }
 }
 </script>
 
@@ -113,7 +141,7 @@ export default {
     margin-top: 13rem;
     padding: 2rem;
     height: 80vh;
-    border-radius: 30px;
+    // border-radius: 30px;
     background-color: white;
 
     .content-section {
@@ -139,13 +167,16 @@ export default {
 
         &__data {
           margin-top: 0.5rem;
+
           &__title {
             font-size: 1.1rem;
             color: rgb(134, 7, 106);
           }
+
           &__time {
             display: flex;
             align-items: center;
+            margin-top: 5px;
             span {
               display: flex;
               align-items: center;
@@ -155,6 +186,26 @@ export default {
                 color: rgb(134, 7, 106);
               }
               &:last-child { justify-content: flex-end; }
+            }
+          }
+
+          &__control {
+            margin-top: 10px;
+            button {
+              background-color: rgb(110, 17, 146);
+              padding: 0.8rem;
+              border-radius: 8px;
+              color: white;
+              &:first-child {
+                width: calc(85% - 8px);
+                margin-right: 8px;
+                font-size: 0.85rem;
+                letter-spacing: 0.12rem;
+              }
+              &:last-child {
+                width: 15%;
+                background-color: rgb(30, 147, 201);
+              }
             }
           }
         }

@@ -52,16 +52,19 @@ export default {
     border-radius: 8px;
     margin-bottom: 1rem;
     position: relative;
+    transition-duration: 0.2s;
 
     -webkit-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
     -moz-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
     box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
 
     &.active {
+      transform: scale(1.04);
       .choose-place__item__overlay {
         background: black;
       }
       .choose-place__item__image {
+        opacity: 1;
         filter: grayscale(0) contrast(200%);
       }
     }
@@ -70,13 +73,14 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgb(134, 7, 113);
+      background: rgb(0,0,0);
       opacity: 0.5;
       z-index: 1;
     }
 
     &__image {
       width: 100%;
+      opacity: 0.5;
       filter: grayscale(100%) contrast(200%);
     }
 
