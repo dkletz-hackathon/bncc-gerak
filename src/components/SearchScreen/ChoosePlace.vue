@@ -2,42 +2,58 @@
   <div class="choose-place">
     <div
       class="choose-place__item"
-      v-for="(item, i) in items"
+      v-for="(place, i) in places"
       :key="i"
-      :class="item.chosen ? 'active' : ''"
+      :class="place.chosen ? 'active' : ''"
       @click="choose(i)"
     >
       <div class="choose-place__item__content">
-        <h1>{{item.name}}</h1>
+        <h1>{{place.name}}</h1>
       </div>
       <div class="choose-place__item__overlay"/>
-      <img class="choose-place__item__image" :src="item.image" alt>
+      <img class="choose-place__item__image" :src="place.logo" alt>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions, mapState } from "vuex";
+import { getCurrentLocation } from "../../helper/location";
+
 export default {
   name: "ChoosePlace",
   props: ["items"],
   methods: {
     choose(idx) {
-      this.reset();
-      this.items[idx].chosen = !this.items[idx].chosen;
-      let state = false;
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].chosen) {
-          state = true;
-          break;
-        }
-      }
-      this.$emit("chosen", state);
+      this.setChosen(idx);
     },
     reset() {
       for (let i = 0; i < this.items.length; i++) {
         this.items[i].chosen = false;
       }
-    }
+    },
+    ...mapGetters("chooseActivityStore", [
+      "getChosenActivities"
+    ]),
+    ...mapGetters("placeStore", [
+      "getChosenId"
+    ]),
+    ...mapActions("placeStore", [
+      "fetchPlacesByPreferences"
+    ]),
+    ...mapMutations("placeStore", [
+      "setChosen"
+    ])
+  },
+  computed: {
+    ...mapState("placeStore", {
+      places: "places"
+    })
+  },
+  mounted() {
+    const chosenActivities = this.getChosenActivities();
+    const { latitude, longitude } = getCurrentLocation();
+    this.fetchPlacesByPreferences({ latitude, longitude, chosenActivities });
   }
 };
 </script>

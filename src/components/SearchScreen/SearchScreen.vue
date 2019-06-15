@@ -14,7 +14,7 @@
       <div v-if="state === 0">
         <h1>Mau olahraga?</h1>
         <p>Klik kegiatan pilihanmu, akan kita carikan tempat yang cocok.</p>
-        <choose-activity :items="activityItems" @chosen="setActivity"/>
+        <choose-activity/>
       </div>
       <!-- place -->
       <div v-if="state === 1">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="search__continue">
-      <button :class="isActive ? 'active': ''" @click="nextState">{{button}}</button>
+      <button :class="isActive ? 'active': ''" @click="handleSearchButtonClick">{{button}}</button>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@
 <script>
 import ChooseActivity from "./ChooseActivity";
 import ChoosePlace from "./ChoosePlace";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   name: "SearchScreen",
@@ -48,57 +49,7 @@ export default {
       search: {
         activity: null,
         place: null
-      },
-      activityItems: [
-        {
-          name: "WEIGHTLIFTING",
-          image:
-            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
-          chosen: false
-        },
-        {
-          name: "JOGGING",
-          image:
-            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
-          chosen: false
-        },
-        {
-          name: "FUTSAL",
-          image:
-            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
-          chosen: false
-        },
-        {
-          name: "ZUMBA",
-          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
-          chosen: false
-        }
-      ],
-      placeItems: [
-        {
-          name: "Urban Gym",
-          image:
-            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg",
-          chosen: false
-        },
-        {
-          name: "Taman Ismail Marzuki",
-          image:
-            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG",
-          chosen: false
-        },
-        {
-          name: "Futsal Active",
-          image:
-            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK",
-          chosen: false
-        },
-        {
-          name: "Studio Zumba Axel",
-          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg",
-          chosen: false
-        }
-      ]
+      }
     };
   },
   methods: {
@@ -108,29 +59,35 @@ export default {
         place: null
       };
       this.state = 0;
-      for (let i = 0; i < this.activityItems.length; i++) {
-        this.activityItems[i].chosen = false;
-      }
-      for (let i = 0; i < this.placeItems.length; i++) {
-        this.placeItems[i].chosen = false;
-      }
       this.$emit("close");
-    },
-    setActivity(status) {
-      this.search.activity = status;
     },
     setPlace(status) {
       this.search.place = status;
     },
-    nextState() {
-      if (this.search.activity) {
+    handleSearchButtonClick() {
+      const chosenActivities = this.getChosenActivities();
+      if (chosenActivities.length) {
         this.state = 1;
-        this.button = 'Pilih Tempat';
+        this.button = "Pilih Tempat";
+        return;
+      }
+      if (this.state === 1) {
+        const id = this.getChosenId();
+        this.$router.push(`/place/${id}`);
       }
     },
     prevState() {
       this.state--;
-    }
+    },
+    ...mapGetters("chooseActivityStore", [
+      "getChosenActivities"
+    ]),
+    ...mapGetters("placeStore", [
+      "getChosenId"
+    ]),
+    ...mapState("placeDetailStore", {
+      placeId: "placeId"
+    })
   },
   computed: {
     isActive() {

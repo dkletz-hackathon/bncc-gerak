@@ -1,37 +1,42 @@
 <template>
   <div class="search__content__category">
     <div
-      v-for="(item, i) in items"
+      v-for="(activity, i) in activities"
       :key="i"
       class="category-item"
-      :class="item.chosen ? 'active' : ''"
-      @click="choose(i)"
+      :class="activity.chosen ? 'active' : ''"
+      @click="chooseActivity(i)"
     >
       <div class="category-item__content">
-        <h1>{{item.name}}</h1>
+        <h1>{{activity.name}}</h1>
       </div>
       <div class="category-item__overlay"/>
-      <img :src="item.image" class="category-item__image" alt>
+      <img :src="activity.urlImage" class="category-item__image" alt>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
   name: "ChooseActivity",
   props: ["items"],
+  computed: {
+    ...mapState("chooseActivityStore", {
+      activities: "activities"
+    })
+  },
   methods: {
-    choose(idx) {
-      this.items[idx].chosen = !this.items[idx].chosen;
-      let state = false;
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].chosen) {
-          state = true;
-          break;
-        }
-      }
-      this.$emit("chosen", state);
-    }
+    ...mapMutations("chooseActivityStore", [
+      "chooseActivity"
+    ]),
+    ...mapActions("chooseActivityStore", [
+      "fetchActivities"
+    ])
+  },
+  mounted() {
+    this.fetchActivities();
   }
 };
 </script>
