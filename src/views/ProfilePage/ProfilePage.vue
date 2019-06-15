@@ -30,6 +30,9 @@
             <i class="fas fa-crown"></i>
           </div>
           <p>{{membership.description}}</p>
+          <div v-if="membership">
+            <qrcode-vue :value="membership.memberType" :size="size"></qrcode-vue>
+          </div>
         </div>
         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="">
       </div>
@@ -38,13 +41,18 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import QrcodeVue from 'qrcode.vue';
   import Navbar from "@/components/Navbar/Navbar.vue";
 
   export default {
     name: 'profile',
     components: {
-      Navbar
+      Navbar, QrcodeVue
+    },
+    data() {
+      return {
+        size: 100
+      }
     },
     computed: {
       user() {
