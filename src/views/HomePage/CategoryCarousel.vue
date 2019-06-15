@@ -1,57 +1,62 @@
 <template>
-  <div class="carousel" id="">
-    <div
-      class="category-item"
-      v-for="(item, i) in items"
-      :key="i"
-    >
+  <div class="carousel" id>
+    <div class="category-item" v-for="(category, i) in categories" :key="i">
       <div class="category__content">
-        <h1>{{item.name}}</h1>
+        <h1>{{category.name}}</h1>
       </div>
-      <div class="category__overlay" />
-      <img :src="item.image" class="category__image" alt="">
+      <div class="category__overlay"/>
+      <img :src="category.urlImage" class="category__image" alt>
     </div>
   </div>
 </template>
 
 <script>
 import { Category } from "../../api/sano";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  name: 'CategoryCarousel',
-  data () {
+  name: "CategoryCarousel",
+  data() {
     return {
       items: [
         {
-          name: 'GYM',
-          image: 'https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg'
+          name: "GYM",
+          image:
+            "https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg"
         },
         {
-          name: 'JOGGING TRACK',
-          image: 'https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG'
+          name: "JOGGING TRACK",
+          image:
+            "https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG"
         },
         {
-          name: 'FUTSAL COURT',
-          image: 'https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK'
+          name: "FUTSAL COURT",
+          image:
+            "https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK"
         },
         {
-          name: 'ZUMBA STUDIO',
-          image: 'http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg'
+          name: "ZUMBA STUDIO",
+          image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg"
         }
-      ]
-    }
+      ],
+    };
   },
   computed: {
-    ...mapState("category", ["categories, status"])
+    ...mapState("categoryCarousel", {
+      categories: "categories",
+      status: "status"
+    })
+  },
+  methods: {
+    ...mapActions("categoryCarousel", ["fetchCategories"])
   },
   mounted() {
-    this.$store.dispatch("categoryCarousel/fetchCategories")
-      .catch(() => {
-        // TODO: handle failure in categories fetching
-      });
+    this.fetchCategories()
+      .catch({
+        // TODO: Handle error
+      })
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -67,9 +72,8 @@ export default {
   &:first-child {
     margin-left: 1.5rem;
   }
-  
-  .category {
 
+  .category {
     &__overlay {
       position: absolute;
       width: 100%;

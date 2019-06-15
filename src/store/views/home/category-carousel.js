@@ -3,7 +3,8 @@ import { Category } from "../../../api/sano";
 const categoryCarouselStore = {
   namespaced: true,
   state: {
-    status: "idle"
+    status: "idle",
+    categories: []
   },
   actions: {
     async fetchCategories({ commit }) {
