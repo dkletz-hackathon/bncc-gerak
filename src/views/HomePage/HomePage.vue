@@ -17,7 +17,7 @@
     </div>
 
     <!-- <div class="home__membership main-center">
-      <h1 class="membership__title">Membership</h1>
+      <h1 class="membership__title">Silver Membership</h1>
       <div class="membership__line"></div>
     </div> -->
 

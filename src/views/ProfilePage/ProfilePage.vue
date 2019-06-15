@@ -7,20 +7,32 @@
         <img src="https://cdn.idntimes.com/content-images/community/2019/03/51021013-237686723851021-5419594866899599564-n-383f6bb258383012cb5b5a76ab6cd8a5.jpg" alt="">
       </div>
       <div class="profile__panel__data">
-        <h1>Lalisa Manoban</h1>
-        <h2>lisalisa@gmail.com</h2>
+        <h1>{{user.name}}</h1>
+        <h2>{{user.email}}</h2>
       </div>
     </div>
 
     <div class="profile__membership main-center">
       <h1>Membership Info</h1>
       <div class="profile__membership__image">
-        <div class="membership__title">
+        <div v-if="!membership" class="membership__title">
           <div>
-            <h1>Gold Membership</h1>
+            <h1>No Membership</h1>
             <i class="fas fa-crown"></i>
           </div>
-          <p>1.509 points</p>
+          <p>Anda tidak mempunyai membership. Yuk daftar di sini!</p>
+        </div>
+        <div v-else class="membership__title">
+          <div>
+            <h1 v-if="membership.memberType === 'silver'">Silver Membership</h1>
+            <h1 v-else-if="membership.memberType === 'gold'">Gold Membership</h1>
+            <h1 v-else>Bronze Membership</h1>
+            <i class="fas fa-crown"></i>
+          </div>
+          <p>{{membership.description}}</p>
+          <div v-if="membership">
+            <qrcode-vue :value="membership.memberType" :size="size"></qrcode-vue>
+          </div>
         </div>
         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="">
       </div>
@@ -29,18 +41,34 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Navbar from "@/components/Navbar/Navbar.vue";
+  import QrcodeVue from 'qrcode.vue';
+  import Navbar from "@/components/Navbar/Navbar.vue";
 
-export default {
-  name: 'profile',
-  components: {
-    Navbar
-  },
-  computed: {
-    ...mapState("session", ["user"])
+  export default {
+    name: 'profile',
+    components: {
+      Navbar, QrcodeVue
+    },
+    data() {
+      return {
+        size: 100
+      }
+    },
+    computed: {
+      user() {
+        return this.$store.state.session.user
+      },
+      membership() {
+        return this.$store.state.session.user.membership;
+      }
+    },
+    mounted() {
+      this.$store.dispatch("session/getProfile").then(() => {
+        console.log("OK")
+      })
+    }
+
   }
-}
 </script>
 
 <style lang="scss" scoped>
