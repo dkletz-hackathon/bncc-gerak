@@ -1,27 +1,28 @@
 <template>
-  <div class="search__content__category">
+  <div class="choose-place">
     <div
+      class="choose-place__item"
       v-for="(item, i) in items"
       :key="i"
-      class="category-item"
       :class="item.chosen ? 'active' : ''"
       @click="choose(i)"
     >
-      <div class="category-item__content">
+      <div class="choose-place__item__content">
         <h1>{{item.name}}</h1>
       </div>
-      <div class="category-item__overlay" />
-      <img :src="item.image" class="category-item__image" alt="">
+      <div class="choose-place__item__overlay" />
+      <img class="choose-place__item__image" :src="item.image" alt="">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ChooseActivity',
+  name: 'ChoosePlace',
   props: ['items'],
   methods: {
     choose (idx) {
+      this.reset()
       this.items[idx].chosen = !this.items[idx].chosen
       let state = false
       for (let i=0; i<this.items.length; i++) {
@@ -31,39 +32,36 @@ export default {
         }
       }
       this.$emit('chosen', state)
+    },
+    reset () {
+      for (let i=0; i<this.items.length; i++) {
+        this.items[i].chosen = false
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.search__content__category {
-  display: flex;
-  flex-wrap: wrap;
+.choose-place {
+  padding-bottom: 3rem;
 
-  .category-item {
-    width: calc(50% - 0.8rem);
+  &__item {
     height: 8rem;
     overflow: hidden;
     border-radius: 8px;
+    margin-bottom: 1rem;
     position: relative;
-    margin-bottom: 0.8rem;
 
     -webkit-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
     -moz-box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
     box-shadow: 0px 12px 30px -17px rgba(0,0,0,0.72);
 
-    &:nth-child(odd) { margin-right: 0.8rem; }
-
     &.active {
-      .category-item__overlay {
-        background: rgb(0, 0, 0);
-      }
-      .category-item__image {
-        filter: grayscale(0) contrast(200%);
-      }
+      .choose-place__item__overlay { background: black; }
+      .choose-place__item__image { filter: grayscale(0) contrast(200%); }
     }
-
+    
     &__overlay {
       position: absolute;
       width: 100%;
@@ -74,28 +72,28 @@ export default {
     }
 
     &__image {
-      height: 100%;
+      width: 100%;
       filter: grayscale(100%) contrast(200%);
-      position: absolute;
-      >img { width: 100%; }
     }
 
     &__content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       position: absolute;
       z-index: 2;
       width: 100%;
       height: 100%;
+      padding: 1rem;
+      padding-top: 3.5rem;
+
       h1 {
         padding: 0 0.5rem;
         color: white;
-        font-size: 0.85rem;
-        letter-spacing: 0.15rem;
-        text-align: center;
+        font-size: 1.25rem;
+        // font-size: 0.85rem;
+        // letter-spacing: 0.15rem;
+        // text-align: center;
       }
     }
   }
+
 }
 </style>

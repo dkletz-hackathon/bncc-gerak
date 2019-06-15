@@ -22,7 +22,12 @@
       </div>
       <!-- place -->
       <div v-if="state === 1">
-        hehe
+        <h1>Yuk Pilih Tempat!</h1>
+        <p>Klik di salah satu tempat pilihanmu, lalu klik selanjutnya.</p>
+        <choose-place
+          :items="placeItems"
+          @chosen="setPlace"
+        />
       </div>
     </div>
 
@@ -40,12 +45,14 @@
 
 <script>
 import ChooseActivity from './ChooseActivity'
+import ChoosePlace from './ChoosePlace'
 
 export default {
   name: 'SearchScreen',
   props: ['active'],
   components: {
-    ChooseActivity
+    ChooseActivity,
+    ChoosePlace
   },
   data () {
     return {
@@ -75,6 +82,28 @@ export default {
           image: 'http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg',
           chosen: false
         }
+      ],
+      placeItems: [
+        {
+          name: 'Urban Gym',
+          image: 'https://www.cravendc.gov.uk/media/7104/view-from-free-weights.jpg',
+          chosen: false
+        },
+        {
+          name: 'Taman Ismail Marzuki',
+          image: 'https://cdn.idntimes.com/content-images/post/20160725/dsc-0328-4ba81e64bff04ed12d3d0465f2d63274.JPG',
+          chosen: false
+        },
+        {
+          name: 'Futsal Active',
+          image: 'https://www.epd.org/sites/default/files/styles/news_full_width_image/public/images/Futsal-Court-Conrad-Fischer-Park.jpg?itok=4ZuMa8wK',
+          chosen: false
+        },
+        {
+          name: 'Studio Zumba Axel',
+          image: 'http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg',
+          chosen: false
+        }
       ]
     }
   },
@@ -84,13 +113,20 @@ export default {
         activity: null,
         place: null
       }
+      this.state = 0
       for (let i=0; i<this.activityItems.length; i++) {
         this.activityItems[i].chosen = false
+      }
+      for (let i=0; i<this.placeItems.length; i++) {
+        this.placeItems[i].chosen = false
       }
       this.$emit('close')
     },
     setActivity (status) {
       this.search.activity = status
+    },
+    setPlace (status) {
+      this.search.place = status
     },
     nextState () {
       if (this.search.activity) this.state = 1
@@ -118,6 +154,7 @@ export default {
   padding: 2rem 1.5rem;
   z-index: 999;
   background-color: white;
+  overflow: auto;
 
   &__header {
     display: flex;
@@ -147,10 +184,12 @@ export default {
   }
 
   &__continue {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     padding: 1rem 0;
     width: 100%;
+    background-color: white;
+    z-index: 2;
 
     button {
       background-color: rgb(151, 151, 151);
