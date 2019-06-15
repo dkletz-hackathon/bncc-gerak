@@ -1,21 +1,13 @@
 <template>
   <div class="carousel">
-    <div
-      class="carousel__item"
-      v-for="(item, i) in items"
-      :key="i"
-    >
-      <img
-        :src="item.image"
-        :alt="item.title"
-        class="item__image"
-      />
+    <div class="carousel__item" v-for="(item, i) in items" :key="i">
+      <img :src="item.image" :alt="item.title" class="item__image">
       <div class="item__content">
-        <i class="fas fa-dumbbell" />
+        <i class="fas fa-dumbbell"/>
         <h2>{{item.type}}</h2>
         <h1>{{item.title}}</h1>
         <h3>
-          <i class="fas fa-map-marker-alt" />
+          <i class="fas fa-map-marker-alt"/>
           800 m dari lokasi Anda
         </h3>
       </div>
@@ -24,6 +16,9 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import { getCurrentLocation } from "../../helper/location";
+
 export default {
   name: 'PlaceCarousel',
   data () {
@@ -47,6 +42,21 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState("placeStore", {
+      places: "places",
+      status: "status"
+    })
+  },
+  methods: {
+    ...mapActions("placeStore", [
+      "fetchClosestPlaces"
+    ])
+  },
+  mounted() {
+    const { latitude, longitude } = getCurrentLocation();
+    this.fetchClosestPlaces({ latitude, longitude });
   }
 }
 </script>
@@ -81,7 +91,6 @@ export default {
   }
 
   .item {
-
     &__image {
       height: 100%;
       filter: brightness(60%);
@@ -92,8 +101,10 @@ export default {
       top: 0;
       padding: 1rem;
       margin-top: 1rem;
-      * { color: white; }
-      >i {
+      * {
+        color: white;
+      }
+      > i {
         margin-bottom: 7rem;
         right: 0;
       }
@@ -109,7 +120,9 @@ export default {
       h3 {
         font-weight: normal;
         font-size: 0.65rem;
-        i { margin-right: 5px; }
+        i {
+          margin-right: 5px;
+        }
       }
     }
   }

@@ -1,16 +1,19 @@
 <template>
   <div class="carousel" id>
-    <div class="category-item" v-for="(item, i) in items" :key="i">
+    <div class="category-item" v-for="(category, i) in categories" :key="i">
       <div class="category__content">
-        <h1>{{item.name}}</h1>
+        <h1>{{category.name}}</h1>
       </div>
       <div class="category__overlay"/>
-      <img :src="item.image" class="category__image" alt>
+      <img :src="category.urlImage" class="category__image" alt>
     </div>
   </div>
 </template>
 
 <script>
+import { Category } from "../../api/sano";
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "CategoryCarousel",
   data() {
@@ -35,8 +38,20 @@ export default {
           name: "ZUMBA STUDIO",
           image: "http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg"
         }
-      ]
+      ],
     };
+  },
+  computed: {
+    ...mapState("categoryCarousel", {
+      categories: "categories",
+      status: "status"
+    })
+  },
+  methods: {
+    ...mapActions("categoryCarousel", ["fetchCategories"])
+  },
+  mounted() {
+    this.fetchCategories();
   }
 };
 </script>
