@@ -1,10 +1,13 @@
 import axios from "axios";
 import { baseURL } from "./config";
+import applyConverters from "axios-case-converter";
 
 let sanoAxios = axios.create({
   baseURL,
   headers: {"Content-Type": "application/json"}
 });
+
+sanoAxios = applyConverters(sanoAxios);
 
 if (process.env.NODE_ENV === "development") {
   sanoAxios.interceptors.request.use(request => {
