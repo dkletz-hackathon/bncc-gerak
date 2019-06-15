@@ -1,8 +1,19 @@
 <template>
-  <div class="container">
+  <div class="page home">
     <navbar />
 
+    <div class="home__membership main-center">
+      hehe
+    </div>
     <div class="page__section">
+      <div class="page__section__title main-center">
+        <h1>Rekomendasi Tempat</h1>
+        <span>
+          <router-link to="/recommendation">
+            Lihat Semua
+          </router-link>
+        </span>
+      </div>
       <place-carousel />
     </div>
   </div>  
@@ -22,13 +33,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding-top: 2rem;
-}
-
-.page {
-  &__section {
-
+.home {
+  &__membership {
+    background-color: red;
+    padding: 1rem;
+    border-radius: 10px;
   }
 }
 </style>

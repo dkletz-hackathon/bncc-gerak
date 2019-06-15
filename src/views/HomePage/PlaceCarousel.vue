@@ -1,5 +1,5 @@
 <template>
-  <v-container class="carousel">
+  <div class="carousel">
     <div
       class="carousel__item"
       v-for="(item, i) in items"
@@ -20,7 +20,7 @@
         </h3>
       </div>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -60,8 +60,8 @@ export default {
 
   &__item {
     flex: 0 0 auto;
-    width: 50vw;
-    height: 15rem;
+    width: 53vw;
+    height: 16rem;
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 15px;
@@ -90,7 +90,7 @@ export default {
       margin-top: 1rem;
       * { color: white; }
       >i {
-        margin-bottom: 6rem;
+        margin-bottom: 6.5rem;
         right: 0;
       }
       h1 {

@@ -1,6 +1,10 @@
 <template>
   <div class="navbar">
-    <div class="navbar__item" v-for="item in items" :key="item.name">
+    <div
+      class="navbar__item"
+      v-for="item in items"
+      :key="item.name"
+    >
       <i :class="item.icon"/>
       <p>{{item.name}}</p>
     </div>
@@ -45,6 +49,8 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 1rem 0;
+
+    * { color: #B1B1B1; }
 
     i {
       margin-bottom: 0.45rem;
