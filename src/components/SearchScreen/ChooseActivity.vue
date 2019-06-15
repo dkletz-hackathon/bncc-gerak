@@ -48,6 +48,8 @@ export default {
     border-radius: 8px;
     position: relative;
     margin-bottom: 0.8rem;
+    animation: fadeUp 1.5s ease;
+    transition-duration: 0.2s;
 
     -webkit-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
     -moz-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
@@ -58,6 +60,7 @@ export default {
     }
 
     &.active {
+      transform: scale(1.04);
       .category-item__overlay {
         background: rgb(0, 0, 0);
       }
@@ -100,6 +103,17 @@ export default {
         text-align: center;
       }
     }
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translateY(80%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 </style>

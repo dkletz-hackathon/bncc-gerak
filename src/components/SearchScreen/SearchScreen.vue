@@ -25,7 +25,7 @@
     </div>
 
     <div class="search__continue">
-      <button :class="isActive ? 'active': ''" @click="nextState">Selanjutnya</button>
+      <button :class="isActive ? 'active': ''" @click="nextState">{{button}}</button>
     </div>
   </div>
 </template>
@@ -43,6 +43,7 @@ export default {
   },
   data() {
     return {
+      button: 'Selanjutnya',
       state: 0,
       search: {
         activity: null,
@@ -122,7 +123,10 @@ export default {
       this.search.place = status;
     },
     nextState() {
-      if (this.search.activity) this.state = 1;
+      if (this.search.activity) {
+        this.state = 1;
+        this.button = 'Pilih Tempat';
+      }
     },
     prevState() {
       this.state--;
@@ -144,12 +148,14 @@ export default {
   top: 0;
   height: 100vh;
   width: 100vw;
-  padding: 2rem 1.5rem;
+  padding: 2rem 0;
   z-index: 999;
   background-color: white;
   overflow: auto;
+  animation: slideUp 0.4s ease;
 
   &__header {
+    padding: 0 1.5rem;
     display: flex;
     span {
       display: flex;
@@ -165,10 +171,12 @@ export default {
 
   &__content {
     margin-top: 2rem;
+    padding: 0 1.5rem;
 
     > div {
       h1 {
         color: #2a0269;
+        animation: slideLeft 0.5s ease;
       }
       p {
         margin-top: 0.25rem;
@@ -176,6 +184,7 @@ export default {
         font-size: 1.2rem;
         line-height: 1.5rem;
         color: #444444;
+        animation: slideLeft 1s ease;
       }
     }
   }
@@ -192,6 +201,7 @@ export default {
       background-color: rgb(151, 151, 151);
       color: white;
       padding: 1.2rem;
+      margin: 0 1.5rem;
       border-radius: 8px;
       text-transform: uppercase;
       letter-spacing: 0.15rem;
@@ -200,6 +210,28 @@ export default {
         background-color: rgb(7, 58, 134);
       }
     }
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 </style>
