@@ -52,6 +52,7 @@ export default {
   },
   mounted() {
     const chosenActivities = this.getChosenActivities();
+    console.log(chosenActivities);
     const { latitude, longitude } = getCurrentLocation();
     this.fetchPlacesByPreferences({ latitude, longitude, chosenActivities });
   }
