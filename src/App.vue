@@ -6,9 +6,12 @@
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+$purple: rgb(177, 22, 55);
 
 html, body {
-  font-family: 'Lato', sans-serif;
+  .application { font-family: 'Lato', sans-serif !important; }
   margin: 0;
   padding: 0;
 }
@@ -29,22 +32,34 @@ a {
 
 .page {
   padding-top: 2rem;
+  padding-bottom: 7rem;
+
   &__section {
-    padding: 2rem 0;
+    padding-top: 2.5rem;
     &__title {
       margin-bottom: 1rem;
       display: flex;
-      * { font-size: 1rem; }
+      align-items: center;
       h1 {
-        color: #5f5f5f;
+        color: #27153b;
         width: 70%;
+        font-size: 1.1rem;
       }
       span {
         width: 30%;
         text-align: right;
-        * { color: rgb(2, 175, 132); }
+        font-size: 0.8rem;
+        * { color: $purple; }
       }
     }
   }
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 </style>

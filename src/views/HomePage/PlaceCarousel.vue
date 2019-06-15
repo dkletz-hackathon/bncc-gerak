@@ -56,17 +56,21 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   &__item {
     flex: 0 0 auto;
     width: 53vw;
-    height: 16rem;
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: 17rem;
+    overflow: hidden;
     border-radius: 15px;
     margin-right: 1rem;
     position: relative;
+
+    // -webkit-box-shadow: 0px 10px 37px -14px rgba(0,0,0,0.58);
+    // -moz-box-shadow: 0px 10px 37px -14px rgba(0,0,0,0.58);
+    // box-shadow: 0px 10px 37px -14px rgba(0,0,0,0.58);
 
     &:first-child {
       margin-left: 1.5rem;
@@ -90,7 +94,7 @@ export default {
       margin-top: 1rem;
       * { color: white; }
       >i {
-        margin-bottom: 6.5rem;
+        margin-bottom: 7rem;
         right: 0;
       }
       h1 {
