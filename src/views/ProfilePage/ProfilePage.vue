@@ -89,6 +89,7 @@
     -webkit-box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
     -moz-box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
     box-shadow: 0px 12px 40px -34px rgba(0,0,0,0.38);
+    animation: slideDown 0.5s ease;
 
     &__image {
       border-radius: 100px;
@@ -120,10 +121,16 @@
 
     >h1 {
       color: #27153b;
+      opacity: 0;
       font-size: 1.1rem;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.3s;
     }
 
     &__image {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.6s;
       margin-top: 1rem;
       border-radius: 10px;
       height: 10rem;
@@ -159,7 +166,33 @@
       margin-top: 1.5rem;
       display: flex;
       justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.9s;
     }
   }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 </style>

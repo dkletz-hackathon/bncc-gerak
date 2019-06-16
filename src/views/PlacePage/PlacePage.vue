@@ -4,6 +4,15 @@
 
     <div class="place__content">
       <div class="content-section">
+        <h1>Estimasi Harga</h1>
+        <div class="place-price">
+          <i class="far fa-money-bill-alt"></i>
+          <span>Rp 23.500,-</span>
+        </div>
+      </div>
+
+      
+      <div class="content-section">
         <h1>Lokasi Tempat</h1>
         <div>
           <GmapMap
@@ -164,11 +173,15 @@ export default {
 }
 
 .place {
+  animation: fadeIn 0.5s ease;
+
   &__header {
     position: fixed;
     width: 100%;
     height: 20rem;
     overflow: hidden;
+    animation: slideDown 0.5s ease;
+
     .back {
       margin-bottom: 1.5rem;
       font-size: 1.25rem;
@@ -218,9 +231,16 @@ export default {
     padding: 2rem;
     height: 80vh;
     background-color: white;
+    animation: slideUp 0.8s ease;
 
     .content-section {
       margin-bottom: 2rem;
+
+      .place-price {
+        margin-top: 0.2rem;
+        >i { color: green; }
+        >span { margin-left: 5px; }
+      }
 
       > h1 {
         font-size: 1.2rem;
@@ -288,6 +308,38 @@ export default {
         }
       }
     }
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 </style>
