@@ -4,6 +4,15 @@
 
     <div class="place__content">
       <div class="content-section">
+        <h1>Estimasi Harga</h1>
+        <div class="place-price">
+          <i class="far fa-money-bill-alt"></i>
+          <span>Rp 23.500,-</span>
+        </div>
+      </div>
+
+      
+      <div class="content-section">
         <h1>Lokasi Tempat</h1>
         <div>
           <GmapMap
@@ -226,6 +235,12 @@ export default {
 
     .content-section {
       margin-bottom: 2rem;
+
+      .place-price {
+        margin-top: 0.2rem;
+        >i { color: green; }
+        >span { margin-left: 5px; }
+      }
 
       > h1 {
         font-size: 1.2rem;
