@@ -1,6 +1,6 @@
 <template>
   <div class="place">
-    <schedule :active="active" @close="active = false"/>
+    <schedule :active="active" :schedules="schedules" :place="place" @close="active = false"/>
 
     <div class="place__content">
       <div class="content-section">
@@ -57,24 +57,14 @@
 
       <div class="content-section" v-if="place.routines.length != 0">
         <h1 class>Agenda Rutin</h1>
-        <div class="routine">
+        <div class="routine" v-for="(event, i) in place.routines" :key="i">
           <div class="routine__image">
             <img src="http://bossgyms.com/wp-content/uploads/2018/02/zumba.jpg" alt>
           </div>
           <div class="routine__data">
             <h1 class="routine__data__title">Daily Zumba Class</h1>
-            <div class="routine__data__time">
-              <span>
-                <i class="far fa-clock"></i>
-                <p>{{ event.timeDisplaly }}</p>
-              </span>
-              <span>
-                <i class="far fa-calendar-minus"></i>
-                <p>{{ event.dayDisplay }}</p>
-              </span>
-            </div>
             <div class="routine__data__control">
-              <button @click="showModal">TAMBAH REMINDER</button>
+              <button @click="showModal(i)">LIHAT JADWAL</button>
               <button>
                 <i class="fab fa-twitter"></i>
               </button>
@@ -120,7 +110,8 @@ export default {
   },
   data() {
     return {
-      active: false
+      active: false,
+      schedules: []
     };
   },
   computed: {
@@ -136,7 +127,8 @@ export default {
     }
   },
   methods: {
-    showModal() {
+    showModal(id) {
+      this.schedules = this.place.routines[id].schedules;
       this.active = true;
     },
     addEvent(id) {

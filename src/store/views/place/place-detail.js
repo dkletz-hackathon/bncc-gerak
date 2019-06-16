@@ -6,7 +6,9 @@ const placeDetailStore = {
   namespaced: true,
   state: {
     place: {
-      category: {}
+      category: {},
+      routines: [],
+      events: []
     },
     query: [],
   },
@@ -31,10 +33,10 @@ const placeDetailStore = {
     async logPlaceQuery({ state }, id) {
       await Marathon.logQuery(id, state.query);
     },
-    async fetchPlace({ commit, dispatch }, id) {
+    async fetchPlace({ commit, dispatch, state }, id) {
       const place = await Place.getById(id);
       commit("setPlace", place);
-      if (query.length !== 0) {
+      if (state.query.length !== 0) {
         dispatch("logPlaceQuery", id);
       }
     }
