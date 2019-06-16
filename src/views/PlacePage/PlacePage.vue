@@ -81,6 +81,14 @@
           </div>
         </div>
       </div>
+
+      <div class="content-section">
+        <h1>Aktivitas mana yang menurut Anda paling sesuai dengan tempat ini?</h1>
+        <div class="question">
+          <questionnaire />
+          <button>SUBMIT</button>
+        </div>
+      </div>
     </div>
 
     <div class="place__header">
@@ -112,6 +120,7 @@
 
 <script>
 import Schedule from "./Schedule";
+import Questionnaire from './Questionnaire'
 import { mapActions, mapState } from "vuex";
 import { getStartAndEndDays } from "../../helper/datetime";
 import { generateTwitterLink } from "../../helper/twitter";
@@ -119,7 +128,8 @@ import { generateTwitterLink } from "../../helper/twitter";
 export default {
   name: "PlacePage",
   components: {
-    Schedule
+    Schedule,
+    Questionnaire
   },
   data() {
     return {
@@ -229,7 +239,7 @@ export default {
     position: absolute;
     margin-top: 16rem;
     padding: 2rem;
-    height: 80vh;
+    min-height: 80vh;
     background-color: white;
     animation: slideUp 0.8s ease;
 
@@ -240,6 +250,21 @@ export default {
         margin-top: 0.2rem;
         >i { color: green; }
         >span { margin-left: 5px; }
+      }
+
+      .question {
+        button {
+          background-color: rgb(189, 33, 105);
+          padding: 1rem;
+          border-radius: 8px;
+          color: white;
+          width: 100%;
+          margin-top: 0.5rem;
+          letter-spacing: 0.1rem;
+          -webkit-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+          -moz-box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+          box-shadow: 0px 12px 30px -17px rgba(0, 0, 0, 0.72);
+        }
       }
 
       > h1 {
