@@ -29,7 +29,7 @@
     "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "css-loader": "^3.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "stylus-loader": "^3.0.2",
