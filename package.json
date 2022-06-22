@@ -17,7 +17,7 @@
     "qrcode.vue": "^1.6.2",
     "register-service-worker": "^1.6.2",
     "stylus": "^0.54.5",
-    "url-js": "^0.2.3-u",
+    "url-js": "^2.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue2-google-maps": "^0.10.6",
